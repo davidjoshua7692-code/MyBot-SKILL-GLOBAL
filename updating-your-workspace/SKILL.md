@@ -45,10 +45,21 @@ description: Update and organize workspace memory files. Use when user says "upd
 
 | 内容类型 | 目标文件 | 判断依据 |
 |----------|----------|----------|
-| 身份定义、战略思维、核心原则、架构理解、memory/索引入口 | MEMORY.md | 长期不变的原则性内容 |
+| 长期记忆、战略思维、核心原则、架构理解、memory/索引入口 | MEMORY.md | 长期不变的原则性内容 |
 | 工作流程、Session 规则、Safety | AGENTS.md | 每次会话都要遵循的规则 |
-| 具体命令、配置参数、排错步骤 | skills/xxx/ | 技术细节、可复用的知识 |
-| 临时记录、日常日志 | 留在 memory/ | 不需要升级的信息 |
+| 技术细节、专业教程、使用技巧、调查与洞见 | skills/searching-XXXXXX-knowledge/ | 可复用的业务知识 |
+| 工具配置、使用方法 | TOOL.md | 发现了新的工具配置/自定义命令，譬如 Skill/MCP |
+| 用户定义、个性化信息 | USER.md | 关于用户身份、偏好等信息 |
+| 身份定义 | SOUL.md | 关于 Agent 自我认知、行为模式的内容 |
+
+> ⚠️ 优先级：MEMORY.md > AGENTS.md > SKILLS > TOOLs > USER.md > SOUL.md
+
+## 记忆来源
+
+| 工作记录、日常日志 | memory/ |
+| 犯错经验、学习记录、错误记录、功能请求 | .learning/ |
+
+> 将有价值的经验总结、原则、流程、需要长期参考的记忆、已经实现的功能提炼到正确的文件
 
 ## 你的 Agent 指南
 
@@ -114,8 +125,6 @@ description: Update and organize workspace memory files. Use when user says "upd
   "sessionTarget": "isolated"
 }
 ```
-
-建议间隔：4-6 小时，避免频繁触发。
 
 ## 注意事项
 
