@@ -74,7 +74,7 @@ description: Update and organize workspace memory files. Use when user says "upd
 ## 记忆来源
 
 | 工作记录、日常日志 | memory/ |
-| 犯错经验、学习记录、错误记录、功能请求 | .learning/ |
+| 犯错经验、学习记录、错误记录、功能请求 | memory/YYYY-MM-DD-{TYPE}.md |
 
 > 将有价值的经验总结、原则、流程、需要长期参考的记忆、已经实现的功能提炼到正确的文件
 

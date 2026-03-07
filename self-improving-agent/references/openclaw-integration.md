@@ -56,17 +56,16 @@ openclaw hooks enable self-improvement
 
 ### 3. Create Learning Files
 
-Create the `.learnings/` directory in your workspace:
+学习记录自动存储在 `memory/` 目录下：
 
-```bash
-mkdir -p ~/.openclaw/workspace/.learnings
+```
+memory/
+├── YYYY-MM-DD-LEARNING.md         # 学习记录
+├── YYYY-MM-DD-ERROR.md            # 错误记录
+└── YYYY-MM-DD-FEATURE_REQUESTS.md # 功能请求
 ```
 
-Or in the skill directory:
-
-```bash
-mkdir -p ~/.openclaw/skills/self-improving-agent/.learnings
-```
+无需手动创建，当天记录时自动创建。
 
 ## Injected Prompt Files
 
@@ -115,7 +114,7 @@ Purpose: Tool capabilities, integration gotchas, local configuration.
 # Tool Knowledge
 
 ## Self-Improvement Skill
-Log learnings to `.learnings/` for continuous improvement.
+Log learnings to `memory/YYYY-MM-DD-{TYPE}.md` for continuous improvement.
 
 ## Local Tools
 - Document tool-specific gotchas here
@@ -127,14 +126,14 @@ Log learnings to `.learnings/` for continuous improvement.
 
 ### Capturing Learnings
 
-1. **In-session**: Log to `.learnings/` as usual
+1. **In-session**: Log to `memory/YYYY-MM-DD-{TYPE}.md` (当天追加)
 2. **Cross-session**: Promote to workspace files
 
 ### Promotion Decision Tree
 
 ```
 Is the learning project-specific?
-├── Yes → Keep in .learnings/
+├── Yes → Keep in memory/YYYY-MM-DD-*.md
 └── No → Is it behavioral/style-related?
     ├── Yes → Promote to SOUL.md
     └── No → Is it tool-related?
@@ -211,7 +210,7 @@ sessions_spawn(task="Research X and report back", label="research")
 | Tool call error | Log to TOOLS.md with tool name |
 | Session handoff confusion | Log to AGENTS.md with delegation pattern |
 | Model behavior surprise | Log to SOUL.md with expected vs actual |
-| Skill issue | Log to .learnings/ or report upstream |
+| Skill issue | Log to `memory/YYYY-MM-DD-ERROR.md` or report upstream |
 
 ## Verification
 
@@ -237,7 +236,7 @@ openclaw status
 
 ### Learnings not persisting
 
-1. Verify `.learnings/` directory exists
+1. Verify `memory/` directory exists
 2. Check file permissions
 3. Ensure workspace path is configured correctly
 

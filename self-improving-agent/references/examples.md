@@ -1,374 +1,169 @@
 # Entry Examples
 
-Concrete examples of well-formatted entries with all fields.
+Concrete examples of well-formatted entries.
 
-## Learning: Correction
+> **注意**：文件名已有日期（如 `2026-03-07-LEARNING.md`），所以 ID 不需要带日期。
+
+## Learning: 用户纠正
+
+追加到 `memory/2026-03-07-LEARNING.md`：
 
 ```markdown
-## [LRN-20250115-001] correction
+## [LRN-001] correction
 
-**Logged**: 2025-01-15T10:30:00Z
 **Priority**: high
-**Status**: pending
-**Area**: tests
-
-### Summary
-Incorrectly assumed pytest fixtures are scoped to function by default
-
-### Details
-When writing test fixtures, I assumed all fixtures were function-scoped. 
-User corrected that while function scope is the default, the codebase 
-convention uses module-scoped fixtures for database connections to 
-improve test performance.
-
-### Suggested Action
-When creating fixtures that involve expensive setup (DB, network), 
-check existing fixtures for scope patterns before defaulting to function scope.
-
-### Metadata
-- Source: user_feedback
-- Related Files: tests/conftest.py
-- Tags: pytest, testing, fixtures
-
----
-```
-
-## Learning: Knowledge Gap (Resolved)
-
-```markdown
-## [LRN-20250115-002] knowledge_gap
-
-**Logged**: 2025-01-15T14:22:00Z
-**Priority**: medium
-**Status**: resolved
 **Area**: config
 
-### Summary
-Project uses pnpm not npm for package management
+### 发生了什么
+丹哥说"安装到全局"，我错误地安装到了 `main/skills/`
 
-### Details
-Attempted to run `npm install` but project uses pnpm workspaces.
-Lock file is `pnpm-lock.yaml`, not `package-lock.json`.
-
-### Suggested Action
-Check for `pnpm-lock.yaml` or `pnpm-workspace.yaml` before assuming npm.
-Use `pnpm install` for this project.
-
-### Metadata
-- Source: error
-- Related Files: pnpm-lock.yaml, pnpm-workspace.yaml
-- Tags: package-manager, pnpm, setup
-
-### Resolution
-- **Resolved**: 2025-01-15T14:30:00Z
-- **Commit/PR**: N/A - knowledge update
-- **Notes**: Added to CLAUDE.md for future reference
+### 学到了什么
+全局 = `~/.openclaw/skills/`
+正确做法：
+\`\`\`bash
+cd ~/.openclaw/skills
+clawhub install <skill-name>
+\`\`\`
 
 ---
 ```
 
-## Learning: Promoted to CLAUDE.md
+## Learning: 知识缺口
+
+追加到 `memory/2026-03-07-LEARNING.md`：
 
 ```markdown
-## [LRN-20250115-003] best_practice
+## [LRN-002] knowledge_gap
 
-**Logged**: 2025-01-15T16:00:00Z
+**Priority**: medium
+**Area**: best-practices
+
+### 发生了什么
+尝试用 `npm install` 但项目用的是 pnpm
+
+### 学到了什么
+检查 `pnpm-lock.yaml` 或 `pnpm-workspace.yaml` 确认包管理器
+这个项目用 `pnpm install`
+
+---
+```
+
+## Error: 命令失败
+
+追加到 `memory/2026-03-07-ERROR.md`：
+
+```markdown
+## [ERR-sed-syntax] sed 命令
+
 **Priority**: high
-**Status**: promoted
-**Promoted**: CLAUDE.md
-**Area**: backend
 
-### Summary
-API responses must include correlation ID from request headers
+### 错误信息
+\`\`\`
+sed: -e expression #1, char 5: extra characters after command
+\`\`\`
 
-### Details
-All API responses should echo back the X-Correlation-ID header from 
-the request. This is required for distributed tracing. Responses 
-without this header break the observability pipeline.
-
-### Suggested Action
-Always include correlation ID passthrough in API handlers.
-
-### Metadata
-- Source: user_feedback
-- Related Files: src/middleware/correlation.ts
-- Tags: api, observability, tracing
+### 原因 & 解决
+macOS 的 sed 和 GNU sed 语法不同
+用 `gsed` 或改用 `awk`
 
 ---
 ```
 
-## Learning: Promoted to AGENTS.md
+## Error: API 调用失败
+
+追加到 `memory/2026-03-07-ERROR.md`：
 
 ```markdown
-## [LRN-20250116-001] best_practice
+## [ERR-api-timeout] 支付 API 超时
 
-**Logged**: 2025-01-16T09:00:00Z
-**Priority**: high
-**Status**: promoted
-**Promoted**: AGENTS.md
-**Area**: backend
-
-### Summary
-Must regenerate API client after OpenAPI spec changes
-
-### Details
-When modifying API endpoints, the TypeScript client must be regenerated.
-Forgetting this causes type mismatches that only appear at runtime.
-The generate script also runs validation.
-
-### Suggested Action
-Add to agent workflow: after any API changes, run `pnpm run generate:api`.
-
-### Metadata
-- Source: error
-- Related Files: openapi.yaml, src/client/api.ts
-- Tags: api, codegen, typescript
-
----
-```
-
-## Error Entry
-
-```markdown
-## [ERR-20250115-A3F] docker_build
-
-**Logged**: 2025-01-15T09:15:00Z
-**Priority**: high
-**Status**: pending
-**Area**: infra
-
-### Summary
-Docker build fails on M1 Mac due to platform mismatch
-
-### Error
-```
-error: failed to solve: python:3.11-slim: no match for platform linux/arm64
-```
-
-### Context
-- Command: `docker build -t myapp .`
-- Dockerfile uses `FROM python:3.11-slim`
-- Running on Apple Silicon (M1/M2)
-
-### Suggested Fix
-Add platform flag: `docker build --platform linux/amd64 -t myapp .`
-Or update Dockerfile: `FROM --platform=linux/amd64 python:3.11-slim`
-
-### Metadata
-- Reproducible: yes
-- Related Files: Dockerfile
-
----
-```
-
-## Error Entry: Recurring Issue
-
-```markdown
-## [ERR-20250120-B2C] api_timeout
-
-**Logged**: 2025-01-20T11:30:00Z
 **Priority**: critical
-**Status**: pending
-**Area**: backend
 
-### Summary
-Third-party payment API timeout during checkout
-
-### Error
-```
+### 错误信息
+\`\`\`
 TimeoutError: Request to payments.example.com timed out after 30000ms
-```
+\`\`\`
 
-### Context
-- Command: POST /api/checkout
-- Timeout set to 30s
-- Occurs during peak hours (lunch, evening)
-
-### Suggested Fix
-Implement retry with exponential backoff. Consider circuit breaker pattern.
-
-### Metadata
-- Reproducible: yes (during peak hours)
-- Related Files: src/services/payment.ts
-- See Also: ERR-20250115-X1Y, ERR-20250118-Z3W
+### 原因 & 解决
+高峰期超时，需要实现重试 + 指数退避
+考虑熔断器模式
 
 ---
 ```
 
 ## Feature Request
 
+追加到 `memory/2026-03-07-FEATURE_REQUESTS.md`：
+
 ```markdown
-## [FEAT-20250115-001] export_to_csv
+## [FEAT-csv-export] 导出 CSV
 
-**Logged**: 2025-01-15T16:45:00Z
 **Priority**: medium
-**Status**: pending
-**Area**: backend
 
-### Requested Capability
-Export analysis results to CSV format
+### 期望的功能
+分析结果导出为 CSV 格式
 
-### User Context
-User runs weekly reports and needs to share results with non-technical 
-stakeholders in Excel. Currently copies output manually.
-
-### Complexity Estimate
-simple
-
-### Suggested Implementation
-Add `--output csv` flag to the analyze command. Use standard csv module.
-Could extend existing `--output json` pattern.
-
-### Metadata
-- Frequency: recurring
-- Related Features: analyze command, json output
+### 为什么需要
+用户每周要出报告，需要分享给非技术人员用 Excel 打开
 
 ---
 ```
 
-## Feature Request: Resolved
+## Feature Request: 已实现
+
+追加到 `memory/2026-03-07-FEATURE_REQUESTS.md`：
 
 ```markdown
-## [FEAT-20250110-002] dark_mode
+## [FEAT-dark-mode] 深色模式
 
-**Logged**: 2025-01-10T14:00:00Z
 **Priority**: low
 **Status**: resolved
-**Area**: frontend
 
-### Requested Capability
-Dark mode support for the dashboard
+### 期望的功能
+Dashboard 支持深色模式
 
-### User Context
-User works late hours and finds the bright interface straining.
-Several other users have mentioned this informally.
-
-### Complexity Estimate
-medium
-
-### Suggested Implementation
-Use CSS variables for colors. Add toggle in user settings.
-Consider system preference detection.
-
-### Metadata
-- Frequency: recurring
-- Related Features: user settings, theme system
+### 为什么需要
+用户晚上工作，亮色界面刺眼
 
 ### Resolution
-- **Resolved**: 2025-01-18T16:00:00Z
-- **Commit/PR**: #142
-- **Notes**: Implemented with system preference detection and manual toggle
+- **Resolved**: 2026-03-07
+- **Commit**: #142
+- **Notes**: 已实现系统偏好检测 + 手动切换
 
 ---
 ```
 
-## Learning: Promoted to Skill
+## 晋升示例
 
+### 晋升到 TOOLS.md
+
+**从 LEARNING.md**：
+> Git push 失败因为没有配置 auth，会触发桌面弹窗
+
+**到 TOOLS.md**：
 ```markdown
-## [LRN-20250118-001] best_practice
-
-**Logged**: 2025-01-18T11:00:00Z
-**Priority**: high
-**Status**: promoted_to_skill
-**Skill-Path**: skills/docker-m1-fixes
-**Area**: infra
-
-### Summary
-Docker build fails on Apple Silicon due to platform mismatch
-
-### Details
-When building Docker images on M1/M2 Macs, the build fails because
-the base image doesn't have an ARM64 variant. This is a common issue
-that affects many developers.
-
-### Suggested Action
-Add `--platform linux/amd64` to docker build command, or use
-`FROM --platform=linux/amd64` in Dockerfile.
-
-### Metadata
-- Source: error
-- Related Files: Dockerfile
-- Tags: docker, arm64, m1, apple-silicon
-- See Also: ERR-20250115-A3F, ERR-20250117-B2D
-
----
+## Git
+- 推送前确认 auth 已配置
+- 用 `gh auth status` 检查 GitHub CLI 认证状态
 ```
 
-## Extracted Skill Example
+### 晋升到 AGENTS.md
 
-When the above learning is extracted as a skill, it becomes:
+**从 LEARNING.md**：
+> API 变更后忘记重新生成客户端，导致类型不匹配
 
-**File**: `skills/docker-m1-fixes/SKILL.md`
-
+**到 AGENTS.md**：
 ```markdown
----
-name: docker-m1-fixes
-description: "Fixes Docker build failures on Apple Silicon (M1/M2). Use when docker build fails with platform mismatch errors."
----
+## 工作流规则
+- 修改 API 后，必须运行 `pnpm run generate:api`
+```
 
-# Docker M1 Fixes
+### 晋升到 SOUL.md
 
-Solutions for Docker build issues on Apple Silicon Macs.
+**从 LEARNING.md**：
+> 用户喜欢用比喻理解技术概念
 
-## Quick Reference
-
-| Error | Fix |
-|-------|-----|
-| `no match for platform linux/arm64` | Add `--platform linux/amd64` to build |
-| Image runs but crashes | Use emulation or find ARM-compatible base |
-
-## The Problem
-
-Many Docker base images don't have ARM64 variants. When building on
-Apple Silicon (M1/M2/M3), Docker attempts to pull ARM64 images by
-default, causing platform mismatch errors.
-
-## Solutions
-
-### Option 1: Build Flag (Recommended)
-
-Add platform flag to your build command:
-
-\`\`\`bash
-docker build --platform linux/amd64 -t myapp .
-\`\`\`
-
-### Option 2: Dockerfile Modification
-
-Specify platform in the FROM instruction:
-
-\`\`\`dockerfile
-FROM --platform=linux/amd64 python:3.11-slim
-\`\`\`
-
-### Option 3: Docker Compose
-
-Add platform to your service:
-
-\`\`\`yaml
-services:
-  app:
-    platform: linux/amd64
-    build: .
-\`\`\`
-
-## Trade-offs
-
-| Approach | Pros | Cons |
-|----------|------|------|
-| Build flag | No file changes | Must remember flag |
-| Dockerfile | Explicit, versioned | Affects all builds |
-| Compose | Convenient for dev | Requires compose |
-
-## Performance Note
-
-Running AMD64 images on ARM64 uses Rosetta 2 emulation. This works
-for development but may be slower. For production, find ARM-native
-alternatives when possible.
-
-## Source
-
-- Learning ID: LRN-20250118-001
-- Category: best_practice
-- Extraction Date: 2025-01-18
+**到 SOUL.md**：
+```markdown
+## 沟通风格
+- 用比喻说明技术概念
 ```
