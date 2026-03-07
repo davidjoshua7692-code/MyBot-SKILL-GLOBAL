@@ -1,6 +1,6 @@
 ---
 name: using-subagent
-description: Spawn and manage subagents for parallel/distributed tasks. Use when needing to delegate work to other agents (technical-support, image-generator) or run isolated tasks. Covers sessions_spawn, model selection, thinking levels.
+description: Spawn (broadcast) and manage subagents for parallel/distributed tasks. Use when needing to delegate work to other agents (technical-support, image-generator) or run isolated tasks. Covers sessions_spawn, model selection, thinking levels.
 ---
 
 # Using Subagent
@@ -25,7 +25,7 @@ sessions_spawn({
 | Method | Purpose | Config Required |
 |--------|---------|-----------------|
 | `sessions_spawn` | Start subagent task | No |
-| `sessions_send` | Send to existing session | `visibility=all` |
+| `sessions_send` | Send to existing session | `tools.agentToAgent.enabled=true` |
 | `subagents` | List/steer/kill child agents | No |
 | `sessions_list` | View active sessions | No |
 
@@ -155,6 +155,37 @@ sessions_spawn({
 ## Task Templates
 
 详细内容：[task-templates.md](references/task-templates.md)
+
+## sessions_send
+
+Send messages to other agent sessions. Requires `tools.agentToAgent.enabled: true`.
+
+### Quick Index
+
+| Topic | Reference |
+|-------|-----------|
+| Parameters & Return Values | [sessions-send.md](references/sessions-send.md#parameters) |
+| Announce Mode (Critical) | [sessions-send.md](references/sessions-send.md#announce-mode-critical) |
+| Session Key Format | [sessions-send.md](references/sessions-send.md#session-key-format) |
+| Best Practices | [sessions-send.md](references/sessions-send.md#best-practices) |
+| Common Patterns | [sessions-send.md](references/sessions-send.md#common-patterns) |
+
+### Announce Mode (Key Rule)
+
+| Target Reply | Result |
+|--------------|--------|
+| `ANNOUNCE_SKIP` | Silent (default) |
+| Other content | **Send to Telegram** ✅ |
+
+**Control via message**:
+```javascript
+// ✅ Request Telegram announce
+sessions_send({
+  message: "Check status. Reply to Telegram (do NOT use ANNOUNCE_SKIP)"
+})
+```
+
+详细说明：[sessions-send.md](references/sessions-send.md)
 
 ## Examples
 
