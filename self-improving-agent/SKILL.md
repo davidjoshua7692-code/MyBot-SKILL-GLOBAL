@@ -11,9 +11,9 @@ description: Captures learnings, errors, and corrections to enable continuous im
 
 ## 🔔 核心机制
 
-你要必须自动：
-1. **记录学习内容** → `.learnings/` 目录
-2. **晋升到永久文件** → AGENTS.md、SOUL.md、TOOLS.md
+你要必须：
+1. **自动记录学习内容** → `.learnings/` 目录
+2. **判断是否需要晋升到永久文件** → MEMORY.md、AGENTS.md、SOUL.md、TOOLS.md
 
 ---
 
@@ -46,14 +46,22 @@ description: Captures learnings, errors, and corrections to enable continuous im
 
 ## 📤 晋升规则
 
-**临时记录 → 永久文件**
+**重要的、长期的**
 
 | 学习类型 | 晋升目标 | 例子 |
 |----------|----------|------|
-| 行为模式 | SOUL.md | "用比喻的方式说明技术方案" |
-| 工作流改进/规则 | AGENTS.md | "Every Session 先读 SOUL.md" |
-| 工具知识 | TOOLS.md | "context7 用于搜索文档" |
-| 架构理解 | MEMORY.md | "OpenClaw 架构图" |
+| 行为模式 | SOUL.md | "以后要用比喻的方式说明技术方案" |
+| 工作流改进/规则 | AGENTS.md | "每次Every Session 先读 SOUL.md" |
+| 工具知识 | TOOLS.md | "你可以使用 context7 搜索XX相关文档" |
+| 架构理解 | MEMORY.md | "这是 OpenClaw 架构图" |
+
+### 2. 语义判断
+
+以下关键词表明信息需要记录到以上长期文件：
+- 重要性：**"这个很重要!"**、**"记下来！"**、**"这个常用到！"**
+- 性质描述：**"原则性的"**、**"核心的"**、**"架构性的"**、**"长期不变的"**
+- 使用频率：**"必须遵守"**、**"这是规则"**
+- 信息类型：**"专业知识"**、**"工具使用方法"**、**"关于用户的信息"**、**"Agent身份的业务知识"**
 
 ---
 
@@ -67,7 +75,7 @@ description: Captures learnings, errors, and corrections to enable continuous im
 **Logged**: 时间戳
 **Priority**: low/medium/high
 **Status**: pending
-**Area**: config/troubleshooting/best-practices
+**Area**: config/troubleshooting/best-practices/etc
 
 ### Summary
 一句话描述学到了什么
@@ -187,13 +195,6 @@ description: Captures learnings, errors, and corrections to enable continuous im
 - XXX: 序号或随机字符
 
 例子：`LRN-20260306-001`、`ERR-20260306-A3F`
-
----
-
-## 🔗 相关文件
-
-- **OpenClaw workspace 结构**: `~/openclaw-workspaces/[workspace]/`
-- **全局 skills**: `~/.openclaw/skills/`
 
 ---
 
