@@ -12,7 +12,7 @@ image-generator workspace 的内容定位规则。
 
 | 文件 | 定位 | 内容类型 | 变化频率 |
 |------|------|----------|----------|
-| **MEMORY.md** | 身份 + 使用经验 + Dan 背景 | 身份定义、使用经验法则、Dan的背景 | 极少变 |
+| **MEMORY.md** | 长期记忆 | 图图业务的思维模式、使用经验法则、Dan的背景 | 极少变 |
 | **AGENTS.md** | 工作规则 + 流程 | Every Session、出图规则、Heartbeat/Cron 流程 | 低 |
 | **skills/visual-creation-knowledge/** | 知识库 | 提示词技巧、案例、各美学风格提示词、Provider 测试、模型对比 | 中-高 |
 | **skills/image-generation/** | ⚠️ 技能代码（不动） | 图像生成脚本、Provider 接口代码 | 极少变 |

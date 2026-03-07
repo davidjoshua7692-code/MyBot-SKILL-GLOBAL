@@ -8,11 +8,11 @@ main workspace 的内容定位规则。
 
 **这个 skill 的作用**：从 memory/ 日志中提炼有价值信息，更新到正确的文件。
 
-**更新来源**：memory/ 日记、research、insights
+**更新来源**：memory/ 日记、research、insights、LEARNING、ERROR、FEATURE_REQUEST
 
 **更新目标**：MEMORY.md、AGENTS.md、skills/
 
-**不更新**：USER.md（静态人设，除非 Dan 明确说改）
+**更新频率低**：USER.md（静态人设，除非 Dan 明确说改）
 
 ---
 
@@ -21,7 +21,7 @@ main workspace 的内容定位规则。
 | 文件 | 定位 | 更新方式 |
 |------|------|----------|
 | **USER.md** | 人设（静态） | ❌ 不用这个skill更新 |
-| **MEMORY.md** | 业务战略思维（北极星、工作方向、中长期目标） | ✅ 更新目标 |
+| **MEMORY.md** | 小丹业务的思维模式、个人IP打造的战略思维（记忆的北极星、工作方向、中长期目标） | ✅ 更新目标 |
 | **AGENTS.md** | 重要工作规则 | ✅ 更新目标 |
 | **skills/** | 知识库（特定知识，按需触发） | ✅ 更新目标 |
 | **memory/research/** | 调研笔记 | 📥 更新来源 |

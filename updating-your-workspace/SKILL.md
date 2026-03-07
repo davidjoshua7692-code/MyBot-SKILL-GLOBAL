@@ -52,7 +52,7 @@ description: Update and organize workspace memory files. Use when user says "upd
 | 用户定义、个性化信息 | USER.md | 关于用户身份、偏好等信息 |
 | 身份定义 | SOUL.md | 关于 Agent 自我认知、行为模式的内容 |
 
-> ⚠️ 优先级：MEMORY.md > AGENTS.md > SKILLS > TOOLs > USER.md > SOUL.md
+> ⚠️ 优先级：MEMORY.md = AGENTS.md  > TOOLs > SKILLS > USER.md > SOUL.md
 
 ### 判断依据：
 
